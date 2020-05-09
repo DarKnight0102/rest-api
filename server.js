@@ -10,35 +10,33 @@ app.use(bodyParser.json())
 const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
+
 module.exports = (app) => {
     const columnnames = require('../controllers/column.controller');
 
-    app.post('/columnnames', columnnames.create);
+    //app.post('/columnnames', columnnames.create);
 
     app.get('/columnnames', columnnames.findAll);
 
+    /*
     app.get('/columnnames/:columnId', columnnames.findOne);
 
     app.put('/columnnames/:columnId', columnnames.update);
 
     app.delete('/columnnames/:columnId', columnnames.delete);
+    */
 }
 
 const config = require('./config/columnnames.config');
 
 const url = config.mongoUrl;
 const connect = mongoose.connect(url, {
-    useMongoClient: true,
     useNewUrlParser: true
 });
 
 connect.then((db) => {
     console.log("Connected correctly to server");
 }, (err) => { console.log(err); });
-
-app.get('/', (req, res) => {
-    res.json({"message": "Welcome"});
-});
 
 require('./app/routes/columnnames.routes.js')(app);
 

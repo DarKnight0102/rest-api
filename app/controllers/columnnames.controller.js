@@ -55,7 +55,7 @@ exports.findOne = (req, res) => {
 };
 
 exports.update = (req, res) => {
-    if(!req.body.content) {
+    if(!req.body.id) {
         return res.status(400).send({
             message: "Column can not have no id"
         });

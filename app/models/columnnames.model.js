@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
-const ColumnSchema = mongoose.Schema({
+console.log("resumodel called ");
+const ColumnModel = mongoose.Schema({
     id: {
         type: Number,
         index: {unique: true, dropDups: true}
@@ -11,4 +12,4 @@ const ColumnSchema = mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model("columnnames", ColumnSchema);
+module.exports = mongoose.model("columnnames", ColumnModel);
