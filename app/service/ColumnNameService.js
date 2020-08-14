@@ -2,10 +2,10 @@ const columnNameModel = require('../models/columnnames.model');
 
 class ColumnNameService{
 
-    static findAll(){
+    findAll(){
         console.log("service called ");
         return columnNameModel.findAll;
     }
 }
 
-module.exports = ColumnNameService;
+export const columnNameService = new ColumnNameService();

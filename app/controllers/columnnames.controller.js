@@ -1,5 +1,6 @@
-const Column = require('../models/columnnames.model.js');
+const ColumnNameService = require('../service/columnnames.service.js');
 
+/*
 exports.create = (req, res) => {
     if(!req.body.id) {
         return res.status(400).send({
@@ -21,8 +22,10 @@ exports.create = (req, res) => {
         });
     });
 };
+*/
 
 exports.findAll = (req, res) => {
+    /*
     Column.find()
     .then(columns => {
         res.send(columns);
@@ -31,22 +34,27 @@ exports.findAll = (req, res) => {
             message: err.message || "Some error occurred while retrieving columns."
         });
     });
-};
-
+    */
+    ColumnNameService.FindAll()
+        .then(columns => {
+            res.send(columns);
+        })
+}
+/*
 exports.findOne = (req, res) => {
     Column.findById(req.params.columnId)
     .then(column => {
         if(!column) {
             return res.status(404).send({
                 message: "Column not found with id " + req.params.columnId
-            });            
+            });
         }
         res.send(column);
     }).catch(err => {
         if(err.kind === 'ObjectId') {
             return res.status(404).send({
                 message: "Column not found with id " + req.params.columnId
-            });                
+            });
         }
         return res.status(500).send({
             message: "Error retrieving column with id " + req.params.columnId
@@ -76,7 +84,7 @@ exports.update = (req, res) => {
         if(err.kind === 'ObjectId') {
             return res.status(404).send({
                 message: "Column not found with id " + req.params.columnId
-            });                
+            });
         }
         return res.status(500).send({
             message: "Error updating column with id " + req.params.columnId
@@ -97,10 +105,11 @@ exports.delete = (req, res) => {
         if(err.kind === 'ObjectId' || err.name === 'NotFound') {
             return res.status(404).send({
                 message: "Column not found with id " + req.params.columnId
-            });                
+            });
         }
         return res.status(500).send({
             message: "Could not delete column with id " + req.params.columnId
         });
     });
 };
+*/
