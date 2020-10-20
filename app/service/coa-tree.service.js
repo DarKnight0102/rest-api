@@ -3,7 +3,8 @@ const COAGroup = require('../models/coa-group.model');
 const COA = require('../models/coa.model');
 
 var exclude = {
-    __v: false
+    __v: false, 
+    sheetNameId: false
 };
 
 const COATreeService = {
@@ -26,11 +27,15 @@ const COATreeService = {
                         var categoryGroupName = group[0]
                         var categoryIdsNames = []
                         tree.categoryId.forEach((coa) => {
-                            COA.find({ _id: coa }, exclude, (err, name) => {
-                                var temp = name[0];
-                                temp = JSON.parse(JSON.stringify(temp))
-                                temp.categoryGroupId = categoryGroupName._id;
-                                categoryIdsNames.push(temp);
+                            COA.find({ id: coa }, exclude, (err, name) => {
+                                if(name.length>0){
+                                    //console.log(name)
+                                    var temp = name[0];
+                                    //console.log(temp)
+                                    //temp = JSON.parse(JSON.stringify(temp))
+                                    temp.categoryGroupId = categoryGroupName._id;
+                                    categoryIdsNames.push(temp);
+                                }
                             })
                         })
                         ////////////////////////
