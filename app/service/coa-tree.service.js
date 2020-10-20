@@ -16,15 +16,17 @@ const COATreeService = {
             var len = 0;
             trees.forEach(tree => {
                 tree = JSON.parse(JSON.stringify(tree))
-                COAGroup.find({ _id: tree.categoryGroupId }, exclude, (err, group) => {
+                COAGroup.findOne({ _id: tree.categoryGroupId }, exclude, (err, group) => {
                     COATree.findOne({ _id: tree.parentId }, exclude, (err, parent) => {
                         var ParentName = parent
                         ParentName = JSON.parse(JSON.stringify(ParentName))
                         if (ParentName) {
                             parents.push(parent)
                             children.push(tree)
+                            console.log(ParentName)
+                            delete ParentName['categoryId']
                         }
-                        var categoryGroupName = group[0]
+                        var categoryGroupName = group
                         var categoryIdsNames = []
                         tree.categoryId.forEach((coa) => {
                             COA.find({ id: coa }, exclude, (err, name) => {
@@ -39,12 +41,12 @@ const COATreeService = {
                             })
                         })
                         ////////////////////////
-                        setTimeout(() => {
+                        //setTimeout(() => {
                             ret.push({
                                 categoryGroup: categoryGroupName,
                                 nodeId: tree._id,
                                 parentId: ParentName,
-                                subgroups: [],
+                                //subgroups: [],
                                 categoryIds: categoryIdsNames,
                             })
                             if (++len === trees.length) {
@@ -68,13 +70,13 @@ const COATreeService = {
                                             })
                                             setTimeout(() => {
                                                 chld.categoryId = innerNames
-                                                output.subgroups.push({
-                                                    _id: chld._id,
-                                                    parentId: chld.parentId,
-                                                    categoryGroupId: chld.categoryGroupId,
-                                                    name: chld.name,
-                                                    categoryIds: chld.categoryId
-                                                })
+                                                // output.subgroups.push({
+                                                //     _id: chld._id,
+                                                //     parentId: chld.parentId,
+                                                //     categoryGroupId: chld.categoryGroupId,
+                                                //     name: chld.name,
+                                                //     categoryIds: chld.categoryId
+                                                // })
                                                 ret[index] = output
                                                 len2++
                                                 if (len2 === parents.length) {
@@ -86,7 +88,7 @@ const COATreeService = {
                                 })
 
                             }
-                        }, 1000)
+                        //}, 1000)
                     })
                 })
             })
